@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Check if the repository name argument is provided
+if [ -z "$1" ]; then
+    echo "Please provide a repository name as an argument."
+    exit 1
+fi
+
+# GitHub Personal Access Token
+access_token="<put your access token here>"
+
+# Clone the repository
+git clone "https://$access_token@github.com/De-sam/$1.git"
+
+# Check if cloning was successful
+if [ $? -eq 0 ]; then
+    echo "Repository cloned successfully."
+else
+    echo "Failed to clone the repository."
+fi
