@@ -1,9 +1,21 @@
 #!/bin/bash
 
-# Function to prompt the user for the GitHub Personal Access Token
-get_access_token() {
+# Function to prompt the user for the GitHub Personal Access Token and username
+get_access_token_and_username() {
+    read -p "Enter your GitHub username: " username
+    echo "$username" > "$HOME/.github_username"
+
     read -p "Enter your GitHub personal access token: " access_token
     echo "$access_token" > "$HOME/.github_access_token"
+
+    # Check if the credentials are valid by making a simple API call
+    response=$(curl -s -o /dev/null -w "%{http_code}" -u "$username:$access_token" https://api.github.com/user)
+    if [ "$response" -ne 200 ]; then
+        echo "Invalid GitHub username or access token. Please try again."
+        # Remove the invalid credentials and prompt the user again
+        rm "$HOME/.github_username" "$HOME/.github_access_token"
+        get_access_token_and_username
+    fi
 }
 
 # Check if the repository name argument is provided
@@ -12,20 +24,15 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-# Check if the access token file exists and read the token from it
-if [ -f "$HOME/.github_access_token" ]; then
-    access_token=$(cat "$HOME/.github_access_token")
-else
-    # If the access token file doesn't exist, prompt the user for the token
-    get_access_token
-fi
+# Loop until both access token and username files exist and read the token and username from them
+while [ ! -f "$HOME/.github_access_token" ] || [ ! -f "$HOME/.github_username" ]; do
+    get_access_token_and_username
+done
 
-# Clone the repository
-git clone "https://$access_token@github.com/De-sam/$1.git"
+access_token=$(cat "$HOME/.github_access_token")
+username=$(cat "$HOME/.github_username")
 
-# Check if cloning was successful
-if [ $? -eq 0 ]; then
-    echo "Repository cloned successfully."
-else
-    echo "Failed to clone the repository."
-fi
+# Clone the repository using the verified GitHub credentials
+repository_name="$1"
+git clone "https://$username:$access_token@github.com/$username/$repository_name.git"
+
