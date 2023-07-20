@@ -44,7 +44,7 @@ Now, you can use the custom commands from any directory.
 
 ### 1. `clone`
 
-This command allows you to clone a GitHub repository securely by providing your GitHub Personal Access Token. If you have already set up your token, it will be read from the file "~/.github_access_token." If the file does not exist, the command will prompt you to enter the token.
+This command allows you to clone a GitHub repository securely by providing your GitHub Personal Access Token and github username. If you have already set up these parameters, it will be read from the file "~/.github_access_token_github_username." If the file does not exist, the command will prompt you to enter the token and username.
 
 Usage:
 
