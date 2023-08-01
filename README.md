@@ -36,8 +36,6 @@ NOTE: if you are getting a permission denied run the command below while still i
 chmod u+x start clone gitpush git_push
 ```
 
-Save the file, and then apply the changes by running:
-
 
 ## Command Descriptions
 
