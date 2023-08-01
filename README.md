@@ -6,39 +6,38 @@ This repository contains three custom Git commands to streamline your Git workfl
 
 To get started, follow these steps:
 
-1. Clone the repository:
+1. Go to your home directory:
+
+   ```bash
+   cd ~
+   ```
+2. Clone the repo by copying the link below in your terminal
 
 ```bash
 git clone https://github.com/De-sam/custom_commands.git
 ```
 
-2. Navigate to the cloned directory:
+3. Navigate into the cloned repository:
 
 ```bash
 cd custom_commands
 ```
 
-3. Make the scripts executable:
+4. Complete your set up by running the command below:
 
 ```bash
-chmod +x clone gitpush git_push
+./start
 ```
 
-4. Include the repository in your PATH:
-
-To make the commands available globally in your home directory, add the following line to your `~/.bashrc` file:
+You are now ready to use the commands from anywhere in your terminal
+NOTE: if you are getting a permission denied run the command below while still in the custom_commands directory
 
 ```bash
-export PATH="$PATH:$HOME/custom_commands"
+chmod u+x start clone gitpush git_push
 ```
 
 Save the file, and then apply the changes by running:
 
-```bash
-source ~/.bashrc
-```
-
-Now, you can use the custom commands from any directory.
 
 ## Command Descriptions
 
